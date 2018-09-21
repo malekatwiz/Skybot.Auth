@@ -24,7 +24,7 @@ namespace Skybot.Auth
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = new List<Secret>
                     {
-                        new Secret(configuration["Texto.Func:ClientSecret"].Sha256())
+                        new Secret(configuration["ApiClients:Texto.Func:ClientSecret"].Sha256())
                     },
                     AllowedScopes = { "Texto.Api" }
                 }

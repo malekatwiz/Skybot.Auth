@@ -2,7 +2,12 @@ version: '3.4'
 
 services:
   skybot.auth:
-    image: ${DOCKER_REGISTRY}skybotauth
+    image: ${DOCKER_REGISTRY}/skybot.auth
     build:
       context: .
       dockerfile: Skybot.Auth/Dockerfile
+    environment:
+      - DOCKER_REGISTRY
+      - IssuerUri
+      - CertTumbprint
+      - ApiClients__Texto.Func__ClientSecret

@@ -11,7 +11,7 @@ namespace Skybot.Auth
         public static void ConfigureIdentityServer(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             
-            serviceCollection.AddIdentityServer(x => x.IssuerUri = "null")
+            serviceCollection.AddIdentityServer(x => x.IssuerUri = configuration["IssuerUri"])
                 .AddSigningCredential(LoadCertificate(configuration["CertTumbprint"]))
                 .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
                 .AddInMemoryClients(IdentityServerConfig.GetApiClients(configuration));

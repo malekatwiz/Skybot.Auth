@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skybot.Auth", "Skybot.Auth\Skybot.Auth.csproj", "{8827FF95-2C20-4C16-9116-E7CEC950A246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skybot.Auth", "Skybot.Auth\Skybot.Auth.csproj", "{8827FF95-2C20-4C16-9116-E7CEC950A246}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{45026449-E44A-4144-83F0-CF1063D87DB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E2B34AD-47F5-4C3F-8E06-5C857E9947AB}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
