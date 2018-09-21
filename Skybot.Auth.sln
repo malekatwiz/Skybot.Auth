@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skybot.Auth", "Skybot.Auth\Skybot.Auth.csproj", "{8827FF95-2C20-4C16-9116-E7CEC950A246}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{45026449-E44A-4144-83F0-CF1063D87DB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8827FF95-2C20-4C16-9116-E7CEC950A246}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8827FF95-2C20-4C16-9116-E7CEC950A246}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8827FF95-2C20-4C16-9116-E7CEC950A246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45026449-E44A-4144-83F0-CF1063D87DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45026449-E44A-4144-83F0-CF1063D87DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45026449-E44A-4144-83F0-CF1063D87DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45026449-E44A-4144-83F0-CF1063D87DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
