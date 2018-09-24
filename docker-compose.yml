@@ -6,8 +6,14 @@ services:
     build:
       context: .
       dockerfile: Skybot.Auth/Dockerfile
+    ports:
+      - "80"
     environment:
       - DOCKER_REGISTRY
       - IssuerUri
-      - CertTumbprint
       - ApiClients__Texto.Func__ClientSecret
+      - StorageAccount__FileUri
+      - StorageAccount__Key
+      - StorageAccount__Name
+      - Certificate__Filename
+      - Certificate__Password

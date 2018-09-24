@@ -1,18 +1,27 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.File;
 using Skybot.Auth.Models;
 
 namespace Skybot.Auth
 {
     public static class ServiceCollectionExtensions
     {
-        public static void ConfigureIdentityServer(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static void ConfigureIdentityServer(this IServiceCollection serviceCollection, IConfiguration configuration, ILogger logger)
         {
-            
+            var cert = LoadCert(configuration, logger).GetAwaiter().GetResult();
+
+            logger.LogInformation($"Cert Name: {cert.FriendlyName} / {cert.Thumbprint}");
+
             serviceCollection.AddIdentityServer(x => x.IssuerUri = configuration["IssuerUri"])
-                .AddSigningCredential(LoadCertificate(configuration["CertTumbprint"]))
+                .AddSigningCredential(cert)
                 .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
                 .AddInMemoryClients(IdentityServerConfig.GetApiClients(configuration));
         }
@@ -23,16 +32,21 @@ namespace Skybot.Auth
                 .AddDefaultTokenProviders();
         }
 
-        private static X509Certificate2 LoadCertificate(string certThumbprint)
+        private static async Task<X509Certificate2> LoadCert(IConfiguration configuration, ILogger logger)
         {
-            using (var certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            logger.LogInformation("Looking for Cert file");
+            if (!File.Exists(configuration["Certificate:Filename"]))
             {
-                certStore.Open(OpenFlags.ReadOnly);
+                logger.LogInformation("Cert file was not found, copying...");
 
-                var certCollection = certStore.Certificates.Find(X509FindType.FindByThumbprint, certThumbprint, true);
+                var file = new CloudFile(new Uri(configuration["StorageAccount:FileUri"]),
+                    new StorageCredentials(configuration["StorageAccount:Name"], configuration["StorageAccount:Key"]));
 
-                return certCollection.Count > 0 ? certCollection[0] : null;
+                await file.DownloadToFileAsync(configuration["Certificate:Filename"], FileMode.Create);
+
+                logger.LogInformation("Cert file was copied successfully");
             }
+            return new X509Certificate2(configuration["Certificate:Filename"], configuration["Certificate:Password"]);
         }
     }
 }
