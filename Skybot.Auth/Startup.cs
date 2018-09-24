@@ -37,7 +37,7 @@ namespace Skybot.Auth
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseIdentityServer();
+            app.UseIdentityServer();
             app.UseMvc();
         }
     }
