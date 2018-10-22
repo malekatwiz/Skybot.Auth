@@ -10,7 +10,8 @@ namespace Skybot.Auth
         {
             return new List<ApiResource>
             {
-                new ApiResource("Texto.Api", "Texto App")
+                new ApiResource("Texto.Api", "Texto App"),
+                new ApiResource("Skybot.Api", "Skybot App")
             };
         }
 
@@ -26,7 +27,7 @@ namespace Skybot.Auth
                     {
                         new Secret(configuration["ApiClients:Texto.Func:ClientSecret"].Sha256())
                     },
-                    AllowedScopes = { "Texto.Api" }
+                    AllowedScopes = { "Texto.Api", "Skybot.Api" }
                 }
             };
         }
