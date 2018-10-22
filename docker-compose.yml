@@ -12,6 +12,7 @@ services:
       - DOCKER_REGISTRY
       - IssuerUri
       - ApiClients__Texto.Func__ClientSecret
+      - ApiClients__Skybot.Func__ClientSecret
       - StorageAccount__FileUri
       - StorageAccount__Key
       - StorageAccount__Name

@@ -27,7 +27,17 @@ namespace Skybot.Auth
                     {
                         new Secret(configuration["ApiClients:Texto.Func:ClientSecret"].Sha256())
                     },
-                    AllowedScopes = { "Texto.Api", "Skybot.Api" }
+                    AllowedScopes = { "Texto.Api" }
+                },
+                new Client
+                {
+                    ClientId = "Skybot.Func",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret(configuration["ApiClients:Skybot.Func:ClientSecret"].Sha256())
+                    },
+                    AllowedScopes = { "Skybot.Api" }
                 }
             };
         }
