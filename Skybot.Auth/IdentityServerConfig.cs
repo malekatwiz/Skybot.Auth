@@ -11,7 +11,8 @@ namespace Skybot.Auth
             return new List<ApiResource>
             {
                 new ApiResource("Texto.Api", "Texto App"),
-                new ApiResource("Skybot.Api", "Skybot App")
+                new ApiResource("Skybot.Api", "Skybot App"),
+                new ApiResource("Skybot.HomeAutomation", "Skybot Home Automation")
             };
         }
 
@@ -38,6 +39,16 @@ namespace Skybot.Auth
                         new Secret(configuration["ApiClients:Skybot.Func:ClientSecret"].Sha256())
                     },
                     AllowedScopes = { "Skybot.Api" }
+                },
+                new Client
+                {
+                    ClientId = "Skybot.HomeAutomation",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("SomeSecret".Sha256())
+                    },
+                    AllowedScopes = { "Skybot.HomeAutomation" }
                 }
             };
         }

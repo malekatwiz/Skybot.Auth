@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Skybot.Auth.Data;
+using Skybot.Auth.Extensions;
 
 namespace Skybot.Auth
 {
@@ -7,7 +9,8 @@ namespace Skybot.Auth
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build()
+                .MigrateDbContext<ApplicationDbContext>((_, __) => { }).Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
