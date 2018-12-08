@@ -1,22 +1,11 @@
 version: '3.4'
 
 services:
-  sql.server:
-    image: microsoft/mssql-server-linux
-    ports:
-      - "32772:1433"
-    container_name: sqlserver
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=MyStrongP@ssword123
-      - MSSQL_PID=Standard
   skybot.auth:
     image: ${DOCKER_REGISTRY}/skybot.auth
     build:
       context: .
       dockerfile: Skybot.Auth/Dockerfile
-    depends_on:
-      - sql.server
     ports:
       - "80"
     environment:

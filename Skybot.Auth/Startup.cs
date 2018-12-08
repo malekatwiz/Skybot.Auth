@@ -1,12 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Skybot.Auth.Data;
 
 namespace Skybot.Auth
 {
@@ -25,16 +22,6 @@ namespace Skybot.Auth
         public void ConfigureServices(IServiceCollection services)
         {
             var logger = LoggerFactory.CreateLogger<ConsoleLogger>();
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionString"],
-                    sqlServerOptionsAction: sqloptions =>
-                    {
-                        sqloptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30),
-                            errorNumbersToAdd: null);
-                    });
-            });
 
             services.ConfigureAspIdentity();
             services.ConfigureIdentityServer(Configuration, logger);
