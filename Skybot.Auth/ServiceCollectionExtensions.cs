@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.File;
 using Skybot.Auth.Models;
+using Skybot.Auth.Stores;
 
 namespace Skybot.Auth
 {
@@ -22,8 +23,10 @@ namespace Skybot.Auth
 
             serviceCollection.AddIdentityServer(x => x.IssuerUri = configuration["IssuerUri"])
                 .AddSigningCredential(cert)
-                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources(configuration.GetSection("ApiResources")))
-                .AddInMemoryClients(IdentityServerConfig.GetApiClients(configuration.GetSection("ApiClients")));
+                .AddClientStore<ClientStore>()
+                .AddResourceStore<ResourceStore>();
+                //.AddInMemoryApiResources(IdentityServerConfig.GetApiResources(configuration.GetSection("ApiResources")))
+                //.AddInMemoryClients(IdentityServerConfig.GetApiClients(configuration.GetSection("ApiClients")));
         }
 
         public static void ConfigureAspIdentity(this IServiceCollection serviceCollection)

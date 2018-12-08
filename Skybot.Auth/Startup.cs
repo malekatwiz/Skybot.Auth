@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using IdentityServer4.Stores;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using Skybot.Auth.Stores;
 
 namespace Skybot.Auth
 {
@@ -22,6 +24,9 @@ namespace Skybot.Auth
         public void ConfigureServices(IServiceCollection services)
         {
             ILogger<ConsoleLogger> logger = LoggerFactory.CreateLogger<ConsoleLogger>();
+
+            services.AddTransient<IClientStore, ClientStore>();
+            services.AddTransient<IResourceStore, ResourceStore>();
 
             services.ConfigureAspIdentity();
             services.ConfigureIdentityServer(Configuration, logger);
