@@ -1,45 +1,45 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
+using Skybot.Auth.Models;
+using ApiResource = IdentityServer4.Models.ApiResource;
 
 namespace Skybot.Auth
 {
     public static class IdentityServerConfig
     {
-        public static IList<ApiResource> GetApiResources()
+        public static IList<ApiResource> GetApiResources(IConfigurationSection configurationSection)
         {
-            return new List<ApiResource>
+            Models.ApiResource[] apiSettings = configurationSection.Get<Models.ApiResource[]>();
+            List<ApiResource> apiResources = new List<ApiResource>();
+            foreach(var api in apiSettings)
             {
-                new ApiResource("Texto.Api", "Texto App"),
-                new ApiResource("Skybot.Api", "Skybot App")
-            };
+                apiResources.Add(new ApiResource(api.Name, api.DisplayName));
+            }
+
+            return apiResources;
         }
 
-        public static IList<Client> GetApiClients(IConfiguration configuration)
+        public static IList<Client> GetApiClients(IConfigurationSection configurationSection)
         {
-            return new List<Client>
+            var clientsSettings = configurationSection.Get<ApiClient[]>();
+            var clients = new List<Client>();
+
+            foreach(var clientSetting in clientsSettings)
             {
-                new Client
+                clients.Add(new Client
                 {
-                    ClientId = "Texto.Func",
+                    ClientId = clientSetting.Id,
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = new List<Secret>
                     {
-                        new Secret(configuration["ApiClients:Texto.Func:ClientSecret"].Sha256())
+                        new Secret(clientSetting.Secret.Sha256())
                     },
-                    AllowedScopes = { "Texto.Api" }
-                },
-                new Client
-                {
-                    ClientId = "Skybot.Func",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = new List<Secret>
-                    {
-                        new Secret(configuration["ApiClients:Skybot.Func:ClientSecret"].Sha256())
-                    },
-                    AllowedScopes = { "Skybot.Api" }
-                }
-            };
+                    AllowedScopes = clientSetting.Scopes
+                });
+            }
+
+            return clients;
         }
     }
 }

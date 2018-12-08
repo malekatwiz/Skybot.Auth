@@ -21,7 +21,7 @@ namespace Skybot.Auth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var logger = LoggerFactory.CreateLogger<ConsoleLogger>();
+            ILogger<ConsoleLogger> logger = LoggerFactory.CreateLogger<ConsoleLogger>();
 
             services.ConfigureAspIdentity();
             services.ConfigureIdentityServer(Configuration, logger);
