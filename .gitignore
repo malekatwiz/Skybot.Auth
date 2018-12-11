@@ -263,3 +263,4 @@ __pycache__/
 # AppSettings
 .env
 *.Development.json
+docker-compose.override.yml
