@@ -2,17 +2,21 @@ version: '3.4'
 
 services:
   skybot.auth:
-    image: ${DOCKER_REGISTRY}/skybot.auth
+    image: malekatwiz/skybot.auth
     build:
       context: .
       dockerfile: Skybot.Auth/Dockerfile
     ports:
       - "80"
     environment:
-      - DOCKER_REGISTRY
       - IssuerUri
       - StorageAccount__FileUri
       - StorageAccount__Key
       - StorageAccount__Name
       - Certificate__Filename
       - Certificate__Password
+      - ApiResources__0__DisplayName
+      - ApiResources__0__Name
+      - ApiClients__0__Id
+      - ApiClients__0__Scopes
+      - ApiClients__0__Secret
