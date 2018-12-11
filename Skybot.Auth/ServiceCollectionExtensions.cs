@@ -25,8 +25,6 @@ namespace Skybot.Auth
                 .AddSigningCredential(cert)
                 .AddClientStore<ClientStore>()
                 .AddResourceStore<ResourceStore>();
-                //.AddInMemoryApiResources(IdentityServerConfig.GetApiResources(configuration.GetSection("ApiResources")))
-                //.AddInMemoryClients(IdentityServerConfig.GetApiClients(configuration.GetSection("ApiClients")));
         }
 
         public static void ConfigureAspIdentity(this IServiceCollection serviceCollection)
