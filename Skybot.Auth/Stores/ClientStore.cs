@@ -17,7 +17,11 @@ namespace Skybot.Auth.Stores
 
         public Task<Client> FindClientByIdAsync(string clientId)
         {
-            return Task.Run(() => GetApiClients()[clientId]);
+            return Task.Run(() =>
+            {
+                GetApiClients().TryGetValue(clientId, out Client client);
+                return client;
+            });
         }
 
         private IDictionary<string, Client> GetApiClients()

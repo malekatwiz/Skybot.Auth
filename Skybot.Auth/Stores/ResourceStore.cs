@@ -18,7 +18,12 @@ namespace Skybot.Auth.Stores
 
         public Task<ApiResource> FindApiResourceAsync(string name)
         {
-            return Task.Run(() => GetApiResources()[name]);
+            return Task.Run(() =>
+            {
+                ApiResource resource = null;
+                GetApiResources().TryGetValue(name, out resource);
+                return resource;
+            });
         }
 
         public Task<IEnumerable<ApiResource>> FindApiResourcesByScopeAsync(IEnumerable<string> scopeNames)
